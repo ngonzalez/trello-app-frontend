@@ -1,0 +1,17 @@
+{
+  "en": {
+    "navbar": {
+      "home": "Home"
+    },
+    "boards": {
+      "title": "Home",
+      "name": "Name",
+      "no_results": "No results found",
+      "loading": "Loading…"
+    },
+    "error": {
+      "unknown": "Unknown error",
+      "route_not_found": "Route not found"
+    }
+  }
+}
