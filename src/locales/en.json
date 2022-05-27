@@ -4,9 +4,7 @@
       "home": "Home"
     },
     "boards": {
-      "title": "Home",
-      "name": "Name",
-      "no_results": "No results found",
+      "title": "Boards",
       "loading": "Loading…"
     },
     "error": {
