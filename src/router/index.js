@@ -1,5 +1,5 @@
 import BoardsList from '../views/BoardsList.vue';
-// import BoardsShow from '../views/BoardsShow.vue';
+import BoardsNew from '../views/BoardsNew.vue';
 import PageNotFound from '../views/404.vue';
 
 const routes = [
@@ -11,6 +11,11 @@ const routes = [
     path: '/boards',
     name: 'boards',
     component: BoardsList,
+  },
+  {
+    path: '/boards/new',
+    name: 'boards_new',
+    component: BoardsNew,
   },
   // {
   //   path:'/:id',

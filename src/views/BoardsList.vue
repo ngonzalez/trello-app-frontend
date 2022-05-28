@@ -37,6 +37,13 @@
           name: 'boards'
         },
       });
+      this.breadcrumbs.push({
+        disabled: false,
+        text: this.$t('boards.new'),
+        to: {
+          name: 'boards_new'
+        },
+      });
     },
     watch:{
       '$route.name': {

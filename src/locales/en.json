@@ -5,7 +5,13 @@
     },
     "boards": {
       "title": "Boards",
-      "loading": "Loading…"
+      "new": "New",
+      "name": "Name",
+      "loading": "Loading…",
+      "new_board_title": "Create a new board",
+      "create_success": "Board created successfully",
+      "create_failure": "Failed to create board",
+      "submit": "Submit"
     },
     "error": {
       "unknown": "Unknown error",

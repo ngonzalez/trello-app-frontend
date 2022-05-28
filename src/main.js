@@ -45,7 +45,7 @@ import fetch from 'cross-fetch'
 
 let httpLink;
 httpLink = new HttpLink({
-  uri: 'http://0.0.0.0:3000/graphql',
+  uri: 'http://0.0.0.0:3001/graphql',
 })
 
 // Cache implementation
