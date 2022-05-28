@@ -17,6 +17,11 @@ const routes = [
     name: 'boards_new',
     component: BoardsNew,
   },
+  {
+    path: '/boards',
+    name: 'boards_create',
+    component: BoardsNew,
+  },
   // {
   //   path:'/:id',
   //   name: 'boards_show',

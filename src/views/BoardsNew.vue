@@ -82,64 +82,14 @@
     watch:{
       '$route.name': {
         handler: function(route_name) {
-          console.log(route_name);
           switch (route_name) {
-            // Boards
-            case 'boards': {
-              const name = this.$route.params.name;
-              const params = {
-                key: "API_KEY",
-                token: "API_TOKEN"
-              };
-
-              axios.post("https://api.trello.com/1/organizations/", _.assign({
-                  displayName: name,
-                }, params))
-                .then((response) => _get(response, 'data', {}))
-                .then((response) => {
-                  this.setStoreData({
-                    'trelloApiResponseOrganization': {
-                      response: response,
-                    },
-                  });
-                })
-
-              axios.post("https://api.trello.com/1/boards/", _.assign({
-                  name: name,
-                  idOrganization: this.storeData.trelloApiResponseOrganization.response.id,
-                }, params))
-                .then((response) => _get(response, 'data', {}))
-                .then((response) => {
-                  this.setStoreData({
-                    'trelloApiResponseBoard': {
-                      response: response,
-                    },
-                  });
-                })
-
-              createBoard({
-                apollo: this.$apollo,
-                name: this.storeData.trelloApiResponseBoard.response.name,
-                itemId: this.storeData.trelloApiResponseBoard.response.id,
-                url: this.storeData.trelloApiResponseBoard.response.url,
-                shortUrl: this.storeData.trelloApiResponseBoard.response.shortUrl,
-              }).then((response) => _get(response, 'data.createBoard', {}))
-                .then(response => {
-                  if (response.success) {
-                    this.setStoreData({
-                      'backendResponseBoard': {
-                        response: response,
-                      },
-                    });
-                    this.$toast.info("Board created successfully");
-                  } else {
-                    this.$toast.warning("Failed to create board");
-                  }
-                }).catch(error => {
-                  this.$toast.warning(error);
-                });
-
-              console.log(this.storeData);
+            case 'boards_create': {
+              this.createTrelloOrganization(this.$route.params.name);
+              this.createTrelloBoard(this.$route.params.name);
+              this.createBoardBackend();
+              this.$router.push({
+                name: 'boards',
+              });
 
               break;
             }
@@ -150,26 +100,72 @@
     methods: {
       ...mapMutations(['setStoreData']),
       handleClickClear(event) {
-        console.log('handleClickClear');
         this.$router.push({
           name: 'boards_new',
         });
       },
       handleSearchFromInput(event) {
-        console.log('handleSearchFromInput');
         this.$router.push({
-          name: 'boards',
+          name: 'boards_create',
           params: { name: event.target.value },
         });
       },
       handleClickSubmit() {
-        console.log('handleClickSubmit');
-        console.log(this.form);
         this.$router.push({
-          name: 'boards',
+          name: 'boards_create',
           params: { name: this.form.name },
         });
       },
+      createTrelloOrganization(displayName) {
+        axios.post("https://api.trello.com/1/organizations/", _.assign({
+            displayName: displayName,
+          }, this.apiParams))
+          .then((response) => _get(response, 'data', {}))
+          .then((response) => {
+            this.setStoreData({
+              'trelloApiResponseOrganization': {
+                response: response,
+              },
+            });
+          })
+      },
+      createTrelloBoard(name) {
+        axios.post("https://api.trello.com/1/boards/", _.assign({
+            name: name,
+            idOrganization: this.storeData.trelloApiResponseOrganization.response.id,
+          }, this.apiParams))
+          .then((response) => _get(response, 'data', {}))
+          .then((response) => {
+            this.setStoreData({
+              'trelloApiResponseBoard': {
+                response: response,
+              },
+            });
+          })
+      },
+      createBoardBackend() {
+        createBoard({
+          apollo: this.$apollo,
+          name: this.storeData.trelloApiResponseBoard.response.name,
+          itemId: this.storeData.trelloApiResponseBoard.response.id,
+          url: this.storeData.trelloApiResponseBoard.response.url,
+          shortUrl: this.storeData.trelloApiResponseBoard.response.shortUrl,
+        }).then((response) => _get(response, 'data.createBoard', {}))
+          .then(response => {
+            if (response.success) {
+              this.setStoreData({
+                'backendResponseBoard': {
+                  response: response,
+                },
+              });
+              this.$toast.info("Board created successfully");
+            } else {
+              this.$toast.warning("Failed to create board");
+            }
+          }).catch(error => {
+            this.$toast.warning(error);
+          });
+      }
     }
   };
 </script>

@@ -19,6 +19,9 @@ import Store from './stores/store';
 // StoreData Configuration
 import StoreDataConfiguration from './configurations/store_data';
 
+// Trello Api Params
+import TrelloApiParams from './configurations/trello_api_params';
+
 // VueToastNotification
 import VueToast from 'vue-toast-notification';
 
@@ -110,6 +113,7 @@ app.use(Store);
 app.use(VueCookies);
 app.use(VueToast);
 app.mixin(StoreDataConfiguration);
+app.mixin(TrelloApiParams);
 
 document.addEventListener('DOMContentLoaded', () => {
   app.mount('#app');
