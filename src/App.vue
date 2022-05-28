@@ -2,7 +2,7 @@
   <v-app>
     <v-main>
       <v-toolbar>
-        <router-link :to="{ name: 'boards' }">
+        <router-link :to="{ name: 'boards_list' }">
           <v-app-bar-nav-icon></v-app-bar-nav-icon>
         </router-link>
         <v-toolbar-title></v-toolbar-title>

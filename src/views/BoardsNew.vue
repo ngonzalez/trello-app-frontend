@@ -61,40 +61,33 @@
     data() {
       return {
         breadcrumbs: [],
-        errors: [],
         form: {},
       }
     },
     created() {
-      this.breadcrumbs = [];
-      this.breadcrumbs.push({
-        disabled: false,
-        text: this.$t('boards.title'),
-        to: {
-          name: 'boards'
-        },
-      });
-      this.breadcrumbs.push({
-        disabled: true,
-        text: this.$t('boards.new')
-      });
+      // created
     },
-    watch:{
+    watch: {
       '$route.name': {
         handler: function(route_name) {
           switch (route_name) {
+            case 'boards_new': {
+              this.loadBreadCrumbs();
+              break;
+            }
             case 'boards_create': {
               this.createTrelloOrganization(this.$route.params.name);
               this.createTrelloBoard(this.$route.params.name);
               this.createBoardBackend();
               this.$router.push({
-                name: 'boards',
+                name: 'boards_list',
               });
-
               break;
             }
           }
-        }
+        },
+        deep: true,
+        immediate: true,
       }
     },
     methods: {
@@ -165,6 +158,20 @@
           }).catch(error => {
             this.$toast.warning(error);
           });
+      },
+      loadBreadCrumbs() {
+        this.breadcrumbs = [];
+        this.breadcrumbs.push({
+          disabled: false,
+          text: this.$t('boards.title'),
+          to: {
+            name: 'boards_list'
+          },
+        });
+        this.breadcrumbs.push({
+          disabled: true,
+          text: this.$t('boards.new')
+        });
       }
     }
   };

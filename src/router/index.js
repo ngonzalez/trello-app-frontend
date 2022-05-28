@@ -1,5 +1,6 @@
 import BoardsList from '../views/BoardsList.vue';
 import BoardsNew from '../views/BoardsNew.vue';
+import BoardsShow from '../views/BoardsShow.vue';
 import PageNotFound from '../views/404.vue';
 
 const routes = [
@@ -9,7 +10,7 @@ const routes = [
   },
   {
     path: '/boards',
-    name: 'boards',
+    name: 'boards_list',
     component: BoardsList,
   },
   {
@@ -22,11 +23,11 @@ const routes = [
     name: 'boards_create',
     component: BoardsNew,
   },
-  // {
-  //   path:'/:id',
-  //   name: 'boards_show',
-  //   component: BoardsShow,
-  // },
+  {
+    path:'/:id',
+    name: 'boards_show',
+    component: BoardsShow,
+  },
   {
     path: '/:catchAll(.*)*',
     name: 'PageNotFound',
