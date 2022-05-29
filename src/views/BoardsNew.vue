@@ -64,7 +64,6 @@
         form: {},
         trelloApiResponseBoard: {},
         trelloApiResponseOrganization: {},
-        trelloApiResponseList: {},
       }
     },
     created() {
@@ -129,24 +128,7 @@
           .then((response) => _get(response, 'data', {}))
           .then((response) => {
             this.trelloApiResponseBoard = response;
-            this.createTrelloList(name);
           })
-      },
-      createTrelloList(name) {
-        axios.post("https://api.trello.com/1/lists/", _.assign({
-            name: name,
-            idBoard: this.trelloApiResponseBoard.id,
-          }, this.apiParams))
-          .then((response) => _get(response, 'data', {}))
-          .then((response) => {
-            this.trelloApiResponseList = response;
-            this.moveTrelloList();
-          })
-      },
-      moveTrelloList() {
-        axios.put("https://api.trello.com/1/lists/" + this.trelloApiResponseList.id + "/idBoard", _.assign({
-            value: this.trelloApiResponseBoard.id,
-          }, this.apiParams))
       },
       createBoardBackend() {
         createBoard({
