@@ -1,6 +1,7 @@
 import BoardsList from '../views/BoardsList.vue';
 import BoardsNew from '../views/BoardsNew.vue';
 import BoardsShow from '../views/BoardsShow.vue';
+import CardsNew from '../views/CardsNew.vue';
 import PageNotFound from '../views/404.vue';
 
 const routes = [
@@ -27,6 +28,11 @@ const routes = [
     path:'/boards/:id',
     name: 'boards_show',
     component: BoardsShow,
+  },
+  {
+    path:'/boards/:id/new',
+    name: 'cards_new',
+    component: CardsNew,
   },
   {
     path: '/:catchAll(.*)*',

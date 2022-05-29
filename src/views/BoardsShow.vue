@@ -25,7 +25,7 @@
                     {{ name }}
                   </v-list-item-title>
                   <v-list-item-subtitle>
-                    <router-link :to="{ name: 'boards_list' }">
+                    <router-link :to="{ name: 'cards_new' }">
                       New Card
                     </router-link>
                   </v-list-item-subtitle>
@@ -93,7 +93,6 @@
                   response: response
                 }
               });
-              console.log(this.storeData.getBoardBackend);
               this.loadBreadCrumbs();
             } else {
               this.$toast.warning("Could not find board");

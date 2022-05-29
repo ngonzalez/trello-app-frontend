@@ -3,7 +3,7 @@ import { mapGetters } from 'vuex';
 export default {
   computed: {
     ...mapGetters(['storeData']),
-    // boards
+    // boards list
     listBoardsResults() {
       if (!this.storeData.listBoardsBackend) return;
       return this.storeData.listBoardsBackend.response.results;
@@ -17,10 +17,15 @@ export default {
       return this.storeData.listBoardsBackend.response.totalPages;
     },
     listBoardsHasResults() {
-      console.log(this.listBoardsBackend);
       return this.storeData.listBoardsBackend &&
              this.storeData.listBoardsBackend.response &&
              this.storeData.listBoardsBackend.response.results.length > 0
+    },
+
+    // board details
+    listBoard() {
+      if (!this.storeData.listBoardsBackend) return;
+      return this.storeData.listBoardsBackend.response.board;
     },
 
     // lists
