@@ -78,6 +78,7 @@
   import deleteBoard from '../mutations/deleteBoard';
   import _ from 'lodash';
   import _get from 'lodash/get';
+  import axios from 'axios';
 
   export default {
     name: 'BoardsList',
@@ -123,9 +124,13 @@
       },
       handleClickDelete(event, itemId) {
         if (confirm("Are you sure?")) {
+          this.deleteTrelloBoard(itemId);
           this.deleteBoardBackend(itemId);
           this.listBoardsBackend();
         }
+      },
+      deleteTrelloBoard(itemId) {
+        // axios.delete("https://api.trello.com/1/boards/" + itemId, this.apiParams);
       },
       deleteBoardBackend(itemId) {
         deleteBoard({ apollo: this.$apollo, itemId: itemId })
