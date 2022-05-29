@@ -51,6 +51,7 @@
 <script>
   import { mapMutations } from 'vuex';
   import createBoard from '../mutations/createBoard';
+  import createLists from '../mutations/createLists';
   import _ from 'lodash';
   import _get from 'lodash/get';
   import axios from 'axios';
@@ -64,6 +65,7 @@
         form: {},
         trelloApiResponseBoard: {},
         trelloApiResponseOrganization: {},
+        trelloApiResponseLists: {},
       }
     },
     created() {
@@ -74,6 +76,14 @@
         handler: function(newValue) {
           this.createBoardBackend();
         },
+      },
+      '$data.trelloApiResponseLists': {
+        handler: function(newValue) {
+          this.createListsBackend();
+          this.$router.push({
+            name: 'boards_list',
+          });
+        }
       },
       '$route.name': {
         handler: function(route_name) {
@@ -128,6 +138,14 @@
           .then((response) => _get(response, 'data', {}))
           .then((response) => {
             this.trelloApiResponseBoard = response;
+            this.getTrelloLists();
+          })
+      },
+      getTrelloLists() {
+        axios.get("https://api.trello.com/1/boards/" + this.trelloApiResponseBoard.id + "/lists?key=" + this.apiParams.key + "&token=" + this.apiParams.token)
+          .then((response) => _get(response, 'data', {}))
+          .then((response) => {
+            this.trelloApiResponseLists = response;
           })
       },
       createBoardBackend() {
@@ -141,11 +159,24 @@
           .then(response => {
             if (response.success) {
               this.$toast.info("Board created successfully");
-              this.$router.push({
-                name: 'boards_list',
-              });
             } else {
               this.$toast.warning("Failed to create board");
+            }
+          }).catch(error => {
+            this.$toast.warning(error);
+          });
+      },
+      createListsBackend() {
+        createLists({
+          apollo: this.$apollo,
+          itemId: this.trelloApiResponseBoard.id,
+          lists: JSON.stringify(_.map(this.trelloApiResponseLists, function(item) { return { id: item.id, name: item.name } }))
+        }).then((response) => _get(response, 'data.createLists', {}))
+          .then(response => {
+            if (response.success) {
+              this.$toast.info("Lists imported successfully");
+            } else {
+              this.$toast.warning("Failed to import lists");
             }
           }).catch(error => {
             this.$toast.warning(error);

@@ -77,7 +77,6 @@
           .then((response) => _get(response, 'data', {}))
           .then((response) => {
             this.trelloApiResponseBoard = response;
-            console.log(this.trelloApiResponseBoard);
           })
       },
       loadBreadCrumbs() {
