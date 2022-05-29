@@ -145,6 +145,7 @@
         listBoards(_.assign({ apollo: this.$apollo }, this.defaultParams))
           .then((response) => _get(response, 'data.listBoards', {}))
           .then((response) => {
+            console.log(response);
             this.setStoreData({
               'listBoardsBackend': {
                 response: response

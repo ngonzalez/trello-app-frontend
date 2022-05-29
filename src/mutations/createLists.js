@@ -1,22 +1,14 @@
 import gql from 'graphql-tag';
 
 const mutation = gql`
-  mutation getBoard(
+  mutation createLists(
     $itemId: String!,
+    $lists: JSON!
   ) {
-    getBoard(input: {
+    createLists(input: {
       itemId: $itemId,
+      lists: $lists
     }) {
-      board {
-        id
-        name
-        itemId
-      }
-      lists {
-        id
-        name
-        itemId
-      }
       success
       errors
     }
@@ -26,11 +18,13 @@ const mutation = gql`
 export default function({
   apollo,
   itemId,
+  lists
 }) {
   return apollo.mutate({
     mutation,
     variables: {
       itemId,
+      lists
     },
   });
 }
