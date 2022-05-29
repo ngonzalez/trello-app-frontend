@@ -31,6 +31,8 @@
     components: { },
     data() {
       return {
+        board: {},
+        trelloApiResponseBoard: {},
         breadcrumbs: [],
       }
     },
@@ -43,7 +45,6 @@
           switch (route_name) {
             case 'boards_show': {
               this.getBoardBackend(this.$route.params.id);
-              this.loadBreadCrumbs();
               break;
             }
           }
@@ -53,7 +54,32 @@
       }
     },
     methods: {
-      ...mapMutations(['setStoreData']),
+      getBoardBackend(itemId) {
+        getBoard({
+          apollo: this.$apollo,
+          itemId: itemId,
+        }).then((response) => _get(response, 'data.getBoard', {}))
+          .then(response => {
+            if (response.success) {
+              this.getBoardBackend = response;
+              this.getApiTrelloBoard();
+              this.loadBreadCrumbs();
+            } else {
+              this.$toast.warning("Could not find board");
+            }
+          }).catch(error => {
+            this.$toast.warning(error);
+          });
+        
+      },
+      getApiTrelloBoard(itemId) {
+        axios.get("https://api.trello.com/1/boards/" + this.getBoardBackend.board.itemId + "?key=" + this.apiParams.key + "&token=" + this.apiParams.token)
+          .then((response) => _get(response, 'data', {}))
+          .then((response) => {
+            this.trelloApiResponseBoard = response;
+            console.log(this.trelloApiResponseBoard);
+          })
+      },
       loadBreadCrumbs() {
         this.breadcrumbs = [];
         this.breadcrumbs.push({
@@ -63,35 +89,13 @@
             name: 'boards_list'
           },
         });
-        if (this.storeData.getBoardBackend) {
-          this.breadcrumbs.push({
-            disabled: false,
-            text: this.storeData.getBoardBackend.response.board.name,
-            to: {
-              name: 'boards_show'
-            },
-          });
-        }
-      },
-      getBoardBackend(itemId) {
-        getBoard({
-          apollo: this.$apollo,
-          itemId: itemId,
-        }).then((response) => _get(response, 'data.getBoard', {}))
-          .then(response => {
-            if (response.success) {
-              this.setStoreData({
-                'getBoardBackend': {
-                  response: response,
-                },
-              });
-            } else {
-              this.$toast.warning("Could not find board");
-            }
-          }).catch(error => {
-            this.$toast.warning(error);
-          });
-        
+        this.breadcrumbs.push({
+          disabled: false,
+          text: this.getBoardBackend.board.name,
+          to: {
+            name: 'boards_show'
+          },
+        });
       },
     }
   };
