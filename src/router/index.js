@@ -24,7 +24,7 @@ const routes = [
     component: BoardsNew,
   },
   {
-    path:'/:id',
+    path:'/boards/:id',
     name: 'boards_show',
     component: BoardsShow,
   },

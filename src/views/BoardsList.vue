@@ -25,6 +25,18 @@
                     <v-icon>mdi-folder-open</v-icon>
                   </v-list-item-title>
 
+                  <v-list-item-title>
+                    <v-chip
+                      color="pink darken-2"
+                      @click="handleClickDelete($event, itemId)"
+                      class="ma-1"
+                      x-small
+                      outlined
+                      label>
+                      {{ $t('boards.delete') }}
+                    </v-chip>
+                  </v-list-item-title>
+
                   <!-- Name -->
                   <v-list-item-title
                     @click="handleClick($event, itemId)"
@@ -39,7 +51,7 @@
       </v-row>
       <v-row v-if="!listBoardsHasResults" align="center" justify="center" class="noResults">
         <v-col cols="12">
-          {{ $t('search.no_results') }}
+          {{ $t('boards.no_results') }}
         </v-col>
       </v-row>
       <v-row v-if="listBoardsHasResults" align="center" justify="center">
@@ -63,6 +75,7 @@
   import { mapMutations } from 'vuex';
   import BoardsResults from '../components/BoardsResults.vue';
   import listBoards from '../mutations/listBoards';
+  import deleteBoard from '../mutations/deleteBoard';
   import _ from 'lodash';
   import _get from 'lodash/get';
 
@@ -107,6 +120,21 @@
       handleListBoardsFromPagination(event) {
         _.assign(this.defaultParams, { page: event });
         this.listBoardsBackend();
+      },
+      handleClickDelete(event, itemId) {
+        if (confirm("Are you sure?")) {
+          this.deleteBoardBackend(itemId);
+          this.listBoardsBackend();
+        }
+      },
+      deleteBoardBackend(itemId) {
+        deleteBoard({ apollo: this.$apollo, itemId: itemId })
+          .then((response) => _get(response, 'data.deleteBoard', {}))
+          .then((response) => {
+            this.$toast.info("Board deleted successfully");
+          }).catch((error) => {
+            this.$toast.warning('Unknown error');
+          });
       },
       listBoardsBackend() {
         listBoards(_.assign({ apollo: this.$apollo }, this.defaultParams))
