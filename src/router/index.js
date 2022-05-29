@@ -30,8 +30,13 @@ const routes = [
     component: BoardsShow,
   },
   {
-    path:'/boards/:id/new',
+    path:'/boards/:id/:listId/cards/new',
     name: 'cards_new',
+    component: CardsNew,
+  },
+  {
+    path:'/boards/:id/:listId/cards',
+    name: 'cards_create',
     component: CardsNew,
   },
   {

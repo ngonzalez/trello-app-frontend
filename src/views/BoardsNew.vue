@@ -22,7 +22,7 @@
               <v-text-field
                 v-bind:label="$t('boards.name')"
                 class="pa-1 ma-1"
-                color="blue darken-2"
+                color="white darken-2"
                 outlined
                 variant="outlined"
                 clearable

@@ -57,7 +57,7 @@
       <v-row v-if="listBoardsHasResults" align="center" justify="center">
         <v-col cols=12 class="ma-5 pa-5">
           <v-pagination
-            color="blue darken-2"
+            color="white darken-2"
             :size="10"
             :show-first-last-page="true"
             :total-visible="10"
@@ -100,7 +100,6 @@
           switch (route_name) {
             case 'boards_list': {
               this.listBoardsBackend();
-              this.loadBreadCrumbs();
               break;
             }
           }
@@ -150,6 +149,7 @@
                 response: response
               }
             });
+            this.loadBreadCrumbs();
           }).catch((error) => {
             this.$toast.warning('Unknown error');
           });

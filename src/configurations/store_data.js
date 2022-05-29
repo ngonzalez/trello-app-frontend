@@ -24,8 +24,8 @@ export default {
 
     // board details
     listBoard() {
-      if (!this.storeData.listBoardsBackend) return;
-      return this.storeData.listBoardsBackend.response.board;
+      if (!this.storeData.getBoardBackend) return;
+      return this.storeData.getBoardBackend.response.board;
     },
 
     // lists

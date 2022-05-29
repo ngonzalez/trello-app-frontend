@@ -17,7 +17,7 @@
       <v-row v-if="listBoardDetailsHasResults">
         <v-col cols="12">
           <BoardDetails>
-            <template #item="{ id, name }">
+            <template #item="{ id, name, itemId }">
               <v-list>
                 <v-list-item>
                   <v-list-item-title
@@ -25,7 +25,7 @@
                     {{ name }}
                   </v-list-item-title>
                   <v-list-item-subtitle>
-                    <router-link :to="{ name: 'cards_new' }">
+                    <router-link :to="{ name: 'cards_new', params: { listId: itemId } }">
                       New Card
                     </router-link>
                   </v-list-item-subtitle>
