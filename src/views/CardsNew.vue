@@ -109,10 +109,6 @@
             }
             case 'cards_create': {
               this.createCardBackend()
-              this.$router.push({
-                name: 'boards_show',
-                params: { id: this.storeData.getBoardBackend.response.board.itemId },
-              });
               break;
             }
           }
@@ -209,10 +205,14 @@
           itemId: this.trelloApiResponseCard.id,
           listId: this.storeData.getListBackend.response.list.itemId,
           ...this.form,
-        }).then((response) => _get(response, 'data.createBoard', {}))
+        }).then((response) => _get(response, 'data.createCard', {}))
           .then(response => {
             if (response.success) {
               this.$toast.info("Card created successfully");
+              this.$router.push({
+                name: 'boards_show',
+                params: { id: this.storeData.getBoardBackend.response.board.itemId },
+              });
             } else {
               this.$toast.warning("Failed to create card");
             }
