@@ -16,9 +16,6 @@
           <hr class="invisible" />
           <form class="simple_form form-horizontal">
             <div class="form-group">
-              <h5>
-                {{ $t('cards.new_card_title') }}
-              </h5>
               <v-text-field
                 v-bind:label="$t('cards.name')"
                 class="pa-1 ma-1"
@@ -29,9 +26,6 @@
               </v-text-field>
             </div>
             <div class="form-group">
-              <h5>
-                {{ $t('cards.new_card_desc') }}
-              </h5>
               <v-textarea
                 v-bind:label="$t('cards.desc')"
                 class="pa-1 ma-1"
@@ -42,9 +36,6 @@
               </v-textarea>
             </div>
             <div class="form-group">
-              <h5>
-                {{ $t('cards.new_card_start') }}
-              </h5>
               <v-text-field
                 label="Start Date"
                 placeholder="2022-06-01"
@@ -52,9 +43,6 @@
               </v-text-field>
             </div>
             <div class="form-group">
-              <h5>
-                {{ $t('cards.new_card_due') }}
-              </h5>
               <v-text-field
                 label="Due Date"
                 placeholder="2022-06-01"

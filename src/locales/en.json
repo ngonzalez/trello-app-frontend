@@ -11,6 +11,14 @@
       "new_board_title": "Create a new board",
       "create_success": "Board created successfully",
       "create_failure": "Failed to create board",
+      "submit": "Submit",
+      "delete": "Delete"
+    },
+    "cards": {
+      "new_card_title": "Title",
+      "name": "Title",
+      "new_card_desc": "Description",
+      "desc": "Description",
       "submit": "Submit"
     },
     "error": {
