@@ -203,7 +203,7 @@
         createCard({
           apollo: this.$apollo,
           itemId: this.trelloApiResponseCard.id,
-          listId: this.storeData.getListBackend.response.list.itemId,
+          listItemId: this.storeData.getListBackend.response.list.itemId,
           ...this.form,
         }).then((response) => _get(response, 'data.createCard', {}))
           .then(response => {

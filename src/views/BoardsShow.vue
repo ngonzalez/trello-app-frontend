@@ -34,14 +34,13 @@
             </template>
           </BoardDetails>
           <ListCards>
-            <template #item="{ id, listId, name, desc }">
+            <template #item="{ id, listItemId, name, desc }">
               <v-list-item-title
                 class="ma-2 cursorPointer">
                 <hr />
                 <span style="text-decoration:underline">Title</span> {{ name }}
                 <br />
                 <span style="text-decoration:underline">Description</span> {{ desc }}
-                {{ listId }}
               </v-list-item-title>
             </template>
           </ListCards>

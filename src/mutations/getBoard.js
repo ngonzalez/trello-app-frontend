@@ -21,7 +21,7 @@ const mutation = gql`
         id
         name
         itemId
-        listId
+        listItemId
         desc
         due
         start

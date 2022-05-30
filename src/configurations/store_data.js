@@ -3,7 +3,7 @@ import { mapGetters } from 'vuex';
 export default {
   computed: {
     ...mapGetters(['storeData']),
-    // boards list
+    // boards
     listBoardsResults() {
       if (!this.storeData.listBoardsBackend) return;
       return this.storeData.listBoardsBackend.response.results;
@@ -22,7 +22,7 @@ export default {
              this.storeData.listBoardsBackend.response.results.length > 0
     },
 
-    // board details
+    // board
     listBoard() {
       if (!this.storeData.getBoardBackend) return;
       return this.storeData.getBoardBackend.response.board;
@@ -37,6 +37,17 @@ export default {
       return this.storeData.getBoardBackend &&
              this.storeData.getBoardBackend.response &&
              this.storeData.getBoardBackend.response.lists.length > 0
+    },
+
+    // cards
+    listBoardCards() {
+      if (!this.storeData.getBoardBackend) return;
+      return this.storeData.getBoardBackend.response.cards;
+    },
+    listBoardCardsHasResults() {
+      return this.storeData.getBoardBackend &&
+             this.storeData.getBoardBackend.response &&
+             this.storeData.getBoardBackend.response.cards.length > 0
     },
   },
 };

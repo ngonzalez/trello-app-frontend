@@ -4,7 +4,7 @@ const mutation = gql`
   mutation createCard(
     $name: String!,
     $itemId: String!,
-    $listId: String!,
+    $listItemId: String!,
     $desc: String!,
     $due: String!,
     $start: String!,
@@ -12,7 +12,7 @@ const mutation = gql`
     createCard(input: {
       name: $name,
       itemId: $itemId,
-      listId: $listId,
+      listItemId: $listItemId,
       desc: $desc,
       due: $due,
       start: $start
@@ -21,7 +21,7 @@ const mutation = gql`
         id
         name
         itemId
-        listId
+        listItemId
         desc
         due
         start
@@ -36,7 +36,7 @@ export default function({
   apollo,
   name,
   itemId,
-  listId,
+  listItemId,
   desc,
   due,
   start,
@@ -46,7 +46,7 @@ export default function({
     variables: {
       name,
       itemId,
-      listId,
+      listItemId,
       desc,
       due,
       start
