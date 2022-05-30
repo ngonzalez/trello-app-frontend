@@ -17,6 +17,15 @@ const mutation = gql`
         name
         itemId
       }
+      cards {
+        id
+        name
+        itemId
+        listId
+        desc
+        due
+        start
+      }
       success
       errors
     }

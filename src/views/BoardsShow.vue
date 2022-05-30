@@ -33,6 +33,18 @@
               </v-list>
             </template>
           </BoardDetails>
+          <ListCards>
+            <template #item="{ id, listId, name, desc }">
+              <v-list-item-title
+                class="ma-2 cursorPointer">
+                <hr />
+                <span style="text-decoration:underline">Title</span> {{ name }}
+                <br />
+                <span style="text-decoration:underline">Description</span> {{ desc }}
+                {{ listId }}
+              </v-list-item-title>
+            </template>
+          </ListCards>
         </v-col>
       </v-row>
       <v-row v-if="!listBoardDetailsHasResults" align="center" justify="center" class="noResults">
@@ -46,6 +58,7 @@
 
 <script>
   import { mapMutations } from 'vuex';
+  import ListCards from '../components/ListCards.vue';
   import BoardDetails from '../components/BoardDetails.vue';
   import getBoard from '../mutations/getBoard';
   import _ from 'lodash';
@@ -54,7 +67,7 @@
 
   export default {
     name: 'BoardsShow',
-    components: { BoardDetails },
+    components: { BoardDetails, ListCards },
     data() {
       return {
         board: {},
@@ -97,10 +110,7 @@
             } else {
               this.$toast.warning("Could not find board");
             }
-          }).catch(error => {
-            this.$toast.warning(error);
           });
-        
       },
       loadBreadCrumbs() {
         this.breadcrumbs = [];
