@@ -123,18 +123,18 @@
       },
       handleClickDelete(event, itemId) {
         if (confirm("Are you sure?")) {
-          this.deleteTrelloBoard(itemId);
+          // this.deleteTrelloBoard(itemId);
           this.deleteBoardBackend(itemId);
-          this.listBoardsBackend();
         }
       },
-      deleteTrelloBoard(itemId) {
-        // axios.delete("https://api.trello.com/1/boards/" + itemId, this.apiParams);
-      },
+      // deleteTrelloBoard(itemId) {
+      //   axios.delete("https://api.trello.com/1/boards/" + itemId, this.apiParams);
+      // },
       deleteBoardBackend(itemId) {
         deleteBoard({ apollo: this.$apollo, itemId: itemId })
           .then((response) => _get(response, 'data.deleteBoard', {}))
           .then((response) => {
+            this.listBoardsBackend();
             this.$toast.info("Board deleted successfully");
           }).catch((error) => {
             this.$toast.warning('Unknown error');
